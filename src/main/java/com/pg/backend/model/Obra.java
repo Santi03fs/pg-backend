@@ -28,4 +28,14 @@ public class Obra {
 
     public LocalDate getFechaInicio() { return fechaInicio; }
     public void setFechaInicio(LocalDate fechaInicio) { this.fechaInicio = fechaInicio; }
+    private boolean finalizada = false; // Por defecto, toda obra nueva empieza "En curso"
+
+    // Y al final del archivo, añade sus correspondientes Getter y Setter:
+    public boolean isFinalizada() {
+        return finalizada;
+    }
+
+    public void setFinalizada(boolean finalizada) {
+        this.finalizada = finalizada;
+    }
 }

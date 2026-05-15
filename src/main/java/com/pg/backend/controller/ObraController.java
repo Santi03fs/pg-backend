@@ -24,4 +24,13 @@ public class ObraController {
     public Obra guardarObra(@RequestBody Obra obra) {
         return obraRepository.save(obra);
     }
+
+    @PutMapping("/{id}/estado")
+    public Obra cambiarEstado(@PathVariable Long id, @RequestBody boolean finalizada) {
+        Obra obra = obraRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Obra no encontrada"));
+
+        obra.setFinalizada(finalizada);
+        return obraRepository.save(obra);
+    }
 }
