@@ -22,6 +22,11 @@ public class Asistencia {
     private String partida;
     private String descripcion;
 
+    // Campos añadidos para control de asistencia diaria
+    private String estadoAsistencia; // "Presente", "Vacaciones", "Ausente", "Baja"
+    private String tipoPago;         // "Normal", "Personalizado"
+    private Double pagoDia;
+
     public Asistencia() {}
 
     // Getters y Setters
@@ -51,4 +56,13 @@ public class Asistencia {
 
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public String getEstadoAsistencia() { return estadoAsistencia; }
+    public void setEstadoAsistencia(String estadoAsistencia) { this.estadoAsistencia = estadoAsistencia; }
+
+    public String getTipoPago() { return tipoPago; }
+    public void setTipoPago(String tipoPago) { this.tipoPago = tipoPago; }
+
+    public Double getPagoDia() { return pagoDia; }
+    public void setPagoDia(Double pagoDia) { this.pagoDia = pagoDia; }
 }

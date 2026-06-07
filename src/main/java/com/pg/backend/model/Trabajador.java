@@ -14,6 +14,10 @@ public class Trabajador {
     private String dni;
     private String telefono;
     private String estado = "Activo";
+    
+    // Horas diarias que trabaja (jornada laboral) y pago por día
+    private Double horasJornada = 8.0;
+    private Double pagoDiario = 0.0;
 
     public Trabajador() {}
 
@@ -32,4 +36,10 @@ public class Trabajador {
 
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
+
+    public Double getHorasJornada() { return horasJornada; }
+    public void setHorasJornada(Double horasJornada) { this.horasJornada = horasJornada; }
+
+    public Double getPagoDiario() { return pagoDiario; }
+    public void setPagoDiario(Double pagoDiario) { this.pagoDiario = pagoDiario; }
 }
