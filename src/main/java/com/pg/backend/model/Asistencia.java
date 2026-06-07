@@ -26,6 +26,7 @@ public class Asistencia {
     private String estadoAsistencia; // "Presente", "Vacaciones", "Ausente", "Baja"
     private String tipoPago;         // "Normal", "Personalizado"
     private Double pagoDia;
+    private Boolean pagado = false;
 
     public Asistencia() {}
 
@@ -65,4 +66,7 @@ public class Asistencia {
 
     public Double getPagoDia() { return pagoDia; }
     public void setPagoDia(Double pagoDia) { this.pagoDia = pagoDia; }
+
+    public Boolean getPagado() { return pagado; }
+    public void setPagado(Boolean pagado) { this.pagado = pagado; }
 }
