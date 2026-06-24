@@ -15,6 +15,9 @@ public class ObraController {
     @Autowired
     private ObraRepository obraRepository;
 
+    @Autowired
+    private com.pg.backend.repository.PartidaRepository partidaRepository;
+
     @GetMapping
     public List<Obra> obtenerTodasLasObras() {
         return obraRepository.findAll();
@@ -22,7 +25,18 @@ public class ObraController {
 
     @PostMapping
     public Obra guardarObra(@RequestBody Obra obra) {
-        return obraRepository.save(obra);
+        boolean esNueva = (obra.getId() == null);
+        Obra obraGuardada = obraRepository.save(obra);
+        
+        if (esNueva) {
+            // Generate 30 enumerated partidas automatically
+            for (int i = 1; i <= 30; i++) {
+                com.pg.backend.model.Partida p = new com.pg.backend.model.Partida(obraGuardada.getId(), i, "Partida " + i);
+                partidaRepository.save(p);
+            }
+        }
+        
+        return obraGuardada;
     }
 
     @PutMapping("/{id}/estado")
