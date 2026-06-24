@@ -26,6 +26,11 @@ public class AsistenciaController {
         return asistenciaRepository.save(asistencia);
     }
 
+    @PostMapping("/batch")
+    public List<Asistencia> guardarAsistenciasEnLote(@RequestBody List<Asistencia> asistencias) {
+        return asistenciaRepository.saveAll(asistencias);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarAsistencia(@PathVariable Long id) {
         try {
