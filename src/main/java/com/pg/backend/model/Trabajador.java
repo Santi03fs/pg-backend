@@ -15,6 +15,7 @@ public class Trabajador {
     private String telefono;
     private String estado = "Activo";
     private String rol = "Obra"; // "Oficina", "Obra", "Hotel"
+    private Boolean esExtra = false;
     
     // Horas diarias que trabaja (jornada laboral) y pago por día
     private Double horasJornada = 8.0;
@@ -46,4 +47,7 @@ public class Trabajador {
 
     public Double getPagoDiario() { return pagoDiario; }
     public void setPagoDiario(Double pagoDiario) { this.pagoDiario = pagoDiario; }
+
+    public Boolean getEsExtra() { return esExtra; }
+    public void setEsExtra(Boolean esExtra) { this.esExtra = esExtra; }
 }
