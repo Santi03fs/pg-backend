@@ -48,7 +48,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         // Verify Bearer Token
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            sendError(response, HttpServletResponse.SC_UNAUTHORIZED, "No autorizado. Token de acceso requerido.");
+            sendError(request, response, HttpServletResponse.SC_UNAUTHORIZED, "No autorizado. Token de acceso requerido.");
             return;
         }
 
@@ -56,7 +56,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         TokenService.TokenClaims claims = tokenService.validateToken(token);
 
         if (claims == null) {
-            sendError(response, HttpServletResponse.SC_UNAUTHORIZED, "Sesión inválida o expirada. Por favor vuelve a iniciar sesión.");
+            sendError(request, response, HttpServletResponse.SC_UNAUTHORIZED, "Sesión inválida o expirada. Por favor vuelve a iniciar sesión.");
             return;
         }
 
@@ -64,7 +64,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         // Endpoints like /api/usuarios (list, create, delete users) require ADMIN role
         if (path.startsWith("/api/usuarios")) {
             if (!"ADMIN".equalsIgnoreCase(claims.getRole())) {
-                sendError(response, HttpServletResponse.SC_FORBIDDEN, "Acceso denegado: Se requiere rol de Administrador.");
+                sendError(request, response, HttpServletResponse.SC_FORBIDDEN, "Acceso denegado: Se requiere rol de Administrador.");
                 return;
             }
         }
@@ -75,7 +75,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private void sendError(HttpServletResponse response, int status, String message) throws IOException {
+    private void sendError(HttpServletRequest request, HttpServletResponse response, int status, String message) throws IOException {
+        String origin = request.getHeader("Origin");
+        if (origin != null && !origin.isBlank()) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setHeader("Vary", "Origin");
+        }
         response.setStatus(status);
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write(String.format("{\"error\":\"%s\",\"status\":%d}", escapeJson(message), status));

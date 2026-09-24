@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/partidas")
-@CrossOrigin(origins = "*")
 public class PartidaController {
 
     @Autowired
