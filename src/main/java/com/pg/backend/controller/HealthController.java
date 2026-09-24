@@ -17,6 +17,7 @@ public class HealthController {
         Map<String, Object> status = new HashMap<>();
         status.put("status", "UP");
         status.put("service", "pg-backend");
+        status.put("version", "2.0-cors-fixed");
         status.put("timestamp", System.currentTimeMillis());
         return ResponseEntity.ok(status);
     }
