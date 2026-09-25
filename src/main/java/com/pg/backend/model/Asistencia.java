@@ -20,6 +20,7 @@ public class Asistencia {
     // --- LOS 3 CAMPOS NUEVOS PARA EL CUADRANTE ---
     private String horario;
     private String partida;
+    private String fase; // Nuevo campo para la Fase dentro de la partida
     private String descripcion;
 
     // Campos añadidos para control de asistencia diaria
@@ -56,6 +57,9 @@ public class Asistencia {
 
     public String getPartida() { return partida; }
     public void setPartida(String partida) { this.partida = partida; }
+
+    public String getFase() { return fase; }
+    public void setFase(String fase) { this.fase = fase; }
 
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
