@@ -5,6 +5,7 @@ import com.pg.backend.repository.AsistenciaRepository;
 import com.pg.backend.repository.GastoRepository;
 import com.pg.backend.repository.ObraRepository;
 import com.pg.backend.repository.PartidaRepository;
+import com.pg.backend.repository.FaseRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ public class ObraController {
     private PartidaRepository partidaRepository;
 
     @Autowired
+    private FaseRepository faseRepository;
+
+    @Autowired
     private AsistenciaRepository asistenciaRepository;
 
     @Autowired
@@ -35,6 +39,7 @@ public class ObraController {
             asistenciaRepository.deleteOrphanAsistencias();
             gastoRepository.deleteOrphanGastos();
             partidaRepository.deleteOrphanPartidas();
+            faseRepository.deleteOrphanFases();
             System.out.println("Limpieza inicial de registros huérfanos completada correctamente.");
         } catch (Exception e) {
             System.err.println("Advertencia al limpiar huérfanos en arranque: " + e.getMessage());
@@ -57,31 +62,15 @@ public class ObraController {
                 asistenciaRepository.deleteByIdObra(obraGuardada.getId());
                 gastoRepository.deleteByIdObra(obraGuardada.getId());
                 partidaRepository.deleteByIdObra(obraGuardada.getId());
+                faseRepository.deleteByIdObra(obraGuardada.getId());
             } catch (Exception ignored) {}
 
-            String[] plantillas = {
-                "Albañilería",
-                "Carpintería de madera",
-                "Carpintería de aluminio / PVC",
-                "Cerrajería",
-                "Fontanería",
-                "Electricidad",
-                "Climatización / Aire acondicionado",
-                "Pladur / Tabiquería seca",
-                "Pintura",
-                "Solados y alicatados",
-                "Impermeabilización",
-                "Cubiertas y tejados",
-                "Demoliciones / Desescombro",
-                "Montajes y mantenimiento",
-                "Fachadas / Revestimientos"
-            };
-
-            // Generar 30 partidas con la plantilla inicial de 15 y el resto enumeradas
+            // Generar 30 partidas y fases genéricas
             for (int i = 1; i <= 30; i++) {
-                String nombrePartida = (i <= plantillas.length) ? plantillas[i - 1] : ("Partida " + i);
-                com.pg.backend.model.Partida p = new com.pg.backend.model.Partida(obraGuardada.getId(), i, nombrePartida);
+                com.pg.backend.model.Partida p = new com.pg.backend.model.Partida(obraGuardada.getId(), i, "Partida " + i);
                 partidaRepository.save(p);
+                com.pg.backend.model.Fase f = new com.pg.backend.model.Fase(obraGuardada.getId(), i, "Fase " + i);
+                faseRepository.save(f);
             }
         }
         
@@ -128,6 +117,7 @@ public class ObraController {
                 asistenciaRepository.deleteByIdObra(id);
                 gastoRepository.deleteByIdObra(id);
                 partidaRepository.deleteByIdObra(id);
+                  faseRepository.deleteByIdObra(id);
                 obraRepository.delete(obra);
                 return ResponseEntity.ok().build();
             } catch (Exception e) {
@@ -143,6 +133,7 @@ public class ObraController {
             asistenciaRepository.deleteOrphanAsistencias();
             gastoRepository.deleteOrphanGastos();
             partidaRepository.deleteOrphanPartidas();
+            faseRepository.deleteOrphanFases();
             return ResponseEntity.ok("Registros huérfanos eliminados correctamente.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
