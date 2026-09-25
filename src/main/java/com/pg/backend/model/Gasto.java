@@ -13,6 +13,8 @@ public class Gasto {
 
     private Long idObra;
     private String categoria;
+    private String partida;
+    private String fase;
     private LocalDate fecha;
     private String descripcion;
     private String provTrabajador;
@@ -29,6 +31,10 @@ public class Gasto {
     public void setIdObra(Long idObra) { this.idObra = idObra; }
     public String getCategoria() { return categoria; }
     public void setCategoria(String categoria) { this.categoria = categoria; }
+    public String getPartida() { return partida; }
+    public void setPartida(String partida) { this.partida = partida; }
+    public String getFase() { return fase; }
+    public void setFase(String fase) { this.fase = fase; }
     public LocalDate getFecha() { return fecha; }
     public void setFecha(LocalDate fecha) { this.fecha = fecha; }
     public String getDescripcion() { return descripcion; }
