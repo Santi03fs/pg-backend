@@ -27,6 +27,19 @@ public class AsistenciaController {
 
     @PostMapping("/batch")
     public List<Asistencia> guardarAsistenciasEnLote(@RequestBody List<Asistencia> asistencias) {
+        for (Asistencia a : asistencias) {
+            if (a.getId() == null && a.getIdTrabajador() != null && a.getFecha() != null) {
+                List<Asistencia> existentes = asistenciaRepository.findByIdTrabajadorAndFecha(a.getIdTrabajador(), a.getFecha());
+                for (Asistencia e : existentes) {
+                    boolean mismaObra = (e.getIdObra() == null && a.getIdObra() == null) ||
+                                       (e.getIdObra() != null && e.getIdObra().equals(a.getIdObra()));
+                    if (mismaObra) {
+                        a.setId(e.getId());
+                        break;
+                    }
+                }
+            }
+        }
         return asistenciaRepository.saveAll(asistencias);
     }
 

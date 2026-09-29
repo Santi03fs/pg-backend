@@ -15,6 +15,7 @@ import java.util.List;
 public interface AsistenciaRepository extends JpaRepository<Asistencia, Long> {
     List<Asistencia> findByIdObraAndPartida(Long idObra, String partida);
     List<Asistencia> findByIdObra(Long idObra);
+    List<Asistencia> findByIdTrabajadorAndFecha(Long idTrabajador, java.time.LocalDate fecha);
 
     @Transactional
     @Modifying
