@@ -30,6 +30,8 @@ public class Asistencia {
     private Boolean pagado = false;
     private Double horasExtra = 0.0;
     private Boolean esExtra = false;
+    private Double precioHora = 0.0;
+    private Double precioHoraExtra = 0.0;
 
     public Asistencia() {}
 
@@ -81,4 +83,10 @@ public class Asistencia {
 
     public Boolean getEsExtra() { return esExtra; }
     public void setEsExtra(Boolean esExtra) { this.esExtra = esExtra; }
+
+    public Double getPrecioHora() { return precioHora; }
+    public void setPrecioHora(Double precioHora) { this.precioHora = precioHora; }
+
+    public Double getPrecioHoraExtra() { return precioHoraExtra; }
+    public void setPrecioHoraExtra(Double precioHoraExtra) { this.precioHoraExtra = precioHoraExtra; }
 }

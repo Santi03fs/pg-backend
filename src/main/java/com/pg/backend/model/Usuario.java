@@ -18,7 +18,7 @@ public class Usuario {
     @Column(nullable = false)
     private String password;
 
-    private String rol = "USER"; // ADMIN or USER
+    private String rol = "USER"; // ADMIN, JEFE, OFICINA, USER
     private String nombre;
 
     public Usuario() {}
