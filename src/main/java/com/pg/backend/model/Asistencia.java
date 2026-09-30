@@ -89,4 +89,10 @@ public class Asistencia {
 
     public Double getPrecioHoraExtra() { return precioHoraExtra; }
     public void setPrecioHoraExtra(Double precioHoraExtra) { this.precioHoraExtra = precioHoraExtra; }
+
+    @Column(name = "obras_multiples")
+    private String obrasMultiples;
+
+    public String getObrasMultiples() { return obrasMultiples; }
+    public void setObrasMultiples(String obrasMultiples) { this.obrasMultiples = obrasMultiples; }
 }
