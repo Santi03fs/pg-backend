@@ -38,4 +38,16 @@ public class TrabajadorController {
             return ResponseEntity.badRequest().body("No se puede eliminar: El trabajador tiene horas registradas.");
         }
     }
+
+    // Actualizar el orden personalizado de una lista de trabajadores
+    @PutMapping("/orden")
+    public ResponseEntity<?> actualizarOrden(@RequestBody List<Trabajador> trabajadores) {
+        for (Trabajador tReq : trabajadores) {
+            trabajadorRepository.findById(tReq.getId()).ifPresent(tDb -> {
+                tDb.setOrdenPersonalizado(tReq.getOrdenPersonalizado());
+                trabajadorRepository.save(tDb);
+            });
+        }
+        return ResponseEntity.ok().build();
+    }
 }

@@ -22,6 +22,9 @@ public class Trabajador {
     private Double pagoDiario = 0.0;
     private Double precioHora = 0.0;
     private Double precioHoraExtra = 0.0;
+    
+    // Orden personalizado para la pantalla de diario
+    private Integer ordenPersonalizado = 0;
 
     public Trabajador() {}
 
@@ -58,4 +61,7 @@ public class Trabajador {
 
     public Double getPrecioHoraExtra() { return precioHoraExtra; }
     public void setPrecioHoraExtra(Double precioHoraExtra) { this.precioHoraExtra = precioHoraExtra; }
+
+    public Integer getOrdenPersonalizado() { return ordenPersonalizado; }
+    public void setOrdenPersonalizado(Integer ordenPersonalizado) { this.ordenPersonalizado = ordenPersonalizado; }
 }
