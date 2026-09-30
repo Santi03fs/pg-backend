@@ -23,4 +23,29 @@ public class GastoController {
     public Gasto guardarGasto(@RequestBody Gasto gasto) {
         return gastoRepository.save(gasto);
     }
+
+    @PutMapping("/{id}")
+    public Gasto actualizarGasto(@PathVariable Long id, @RequestBody Gasto gastoActualizado) {
+        return gastoRepository.findById(id).map(gasto -> {
+            gasto.setIdObra(gastoActualizado.getIdObra());
+            gasto.setCategoria(gastoActualizado.getCategoria());
+            gasto.setPartida(gastoActualizado.getPartida());
+            gasto.setFase(gastoActualizado.getFase());
+            gasto.setFecha(gastoActualizado.getFecha());
+            gasto.setDescripcion(gastoActualizado.getDescripcion());
+            gasto.setProvTrabajador(gastoActualizado.getProvTrabajador());
+            gasto.setUdsHoras(gastoActualizado.getUdsHoras());
+            gasto.setPrecioNeto(gastoActualizado.getPrecioNeto());
+            gasto.setPrecioPvp(gastoActualizado.getPrecioPvp());
+            return gastoRepository.save(gasto);
+        }).orElseGet(() -> {
+            gastoActualizado.setId(id);
+            return gastoRepository.save(gastoActualizado);
+        });
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminarGasto(@PathVariable Long id) {
+        gastoRepository.deleteById(id);
+    }
 }
